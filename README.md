@@ -4,3 +4,15 @@ _Use with `cargo generate prabirshrestha/salvo-template`._
 # {{project-name}}
 
 My web project.
+
+## Building
+
+```bash
+cargo build
+```
+
+## Running
+
+```bash
+cargo run
+```
