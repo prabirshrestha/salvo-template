@@ -1,5 +1,10 @@
+use tracing::info;
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    println!("hello world!");
+    tracing_subscriber::fmt().init();
+
+    info!("Starting server");
+
     Ok(())
 }
