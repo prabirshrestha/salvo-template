@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = { version = "1.0.77", features = ["backtrace"] }
+anyhow = { version = "1.0.81", features = ["backtrace"] }
 tokio = { version = "1.36.0", default-features = false, features = ["macros", "rt-multi-thread"] }
 
 [[bin]]
