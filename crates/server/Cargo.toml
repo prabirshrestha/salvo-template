@@ -7,7 +7,10 @@ edition = "2021"
 
 [dependencies]
 anyhow = { version = "1.0.81", features = ["backtrace"] }
-tokio = { version = "1.36.0", default-features = false, features = ["macros", "rt-multi-thread"] }
+salvo = "0.66.2"
+schematic = { version = "0.14.5", features = ["yaml"] }
+serde = "1.0.197"
+tokio = { version = "1.36.0", default-features = false, features = ["macros", "rt-multi-thread", "signal"] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
 
