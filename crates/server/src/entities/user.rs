@@ -14,8 +14,8 @@ pub enum UserIden {
 }
 
 #[derive(Debug)]
-pub struct User {
-    pub id: i64,
+pub struct UserEntity {
+    pub id: String,
     pub username: String,
     pub password_hash: Secret<String>,
     pub is_locked: bool,
