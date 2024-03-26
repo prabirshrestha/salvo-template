@@ -4,7 +4,7 @@ use sqlx::{
     AnyPool, Error,
 };
 
-use crate::models::user::UserIden;
+use crate::entities::user::UserIden;
 
 pub fn up(_pool: AnyPool, schema_builder: &dyn SchemaBuilder) -> Result<Migration, Error> {
     let sql = Table::create()

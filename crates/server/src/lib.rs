@@ -5,6 +5,6 @@ mod routes;
 pub use routes::*;
 
 pub mod app;
+pub mod entities;
 pub mod migrations;
-pub mod models;
 pub mod views;
