@@ -5,3 +5,5 @@ mod routes;
 pub use routes::*;
 
 pub mod app;
+pub mod migrations;
+pub mod models;

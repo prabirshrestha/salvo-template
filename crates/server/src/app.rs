@@ -1,15 +1,33 @@
-use crate::AppConfig;
+use crate::{migrations::migrate_up, AppConfig};
 use salvo::{prelude::*, server::ServerHandle};
+use sqlx::{Any, Pool};
 use tokio::signal;
 use tracing::info;
 
 pub struct App {
     app_config: AppConfig,
+    db: Pool<Any>,
 }
 
 impl App {
-    pub fn new(app_config: AppConfig) -> anyhow::Result<Self> {
-        Ok(Self { app_config })
+    pub async fn new_from_env() -> anyhow::Result<Self> {
+        let app_config = AppConfig::load()?;
+        Self::new_from_config(app_config).await
+    }
+
+    pub async fn new_from_config(app_config: AppConfig) -> anyhow::Result<Self> {
+        let db = Pool::connect(&app_config.database).await?;
+        let app = Self { app_config, db };
+        app.init().await?;
+        Ok(app)
+    }
+
+    async fn init(&self) -> anyhow::Result<()> {
+        if self.app_config.auto_migrate {
+            migrate_up(self.db.clone()).await?;
+        }
+
+        Ok(())
     }
 
     pub fn app_config(&self) -> &AppConfig {

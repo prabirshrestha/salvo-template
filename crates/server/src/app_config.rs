@@ -7,6 +7,12 @@ pub struct AppConfig {
 
     #[setting(default = "8080", env = "PORT")]
     pub port: String,
+
+    #[setting(default = "sqlite::memory:", env = "DATABASE_URL")]
+    pub database: String,
+
+    #[setting(default = true, env = "AUTO_MIGRATE")]
+    pub auto_migrate: bool,
 }
 
 impl AppConfig {
