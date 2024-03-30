@@ -1,4 +1,4 @@
-use server::{app::App, router};
+use server::app::App;
 use sqlx::any::install_default_drivers;
 
 #[tokio::main]
@@ -7,8 +7,7 @@ async fn main() -> anyhow::Result<()> {
 
     install_default_drivers();
 
-    let app = App::new_from_env().await?;
-    app.serve(router()).await?;
+    App::new_from_env().await?.serve().await?;
 
     Ok(())
 }
