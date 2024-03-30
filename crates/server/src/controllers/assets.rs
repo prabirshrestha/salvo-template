@@ -3,7 +3,7 @@ use salvo::prelude::*;
 const STYLES_CSS: &str = grass::include!("./crates/server/assets/stylesheets/styles.scss");
 
 pub fn routes() -> Router {
-    Router::new().path("assets/styles.css").get(get_stylesheet)
+    Router::new().path("/assets/styles.css").get(get_stylesheet)
 }
 
 #[handler]

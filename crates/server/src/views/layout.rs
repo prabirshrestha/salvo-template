@@ -1,4 +1,4 @@
-use crate::routes::assets;
+use crate::controllers::assets;
 
 markup::define! {
     Layout<Main: markup::Render>(main: Main) {
