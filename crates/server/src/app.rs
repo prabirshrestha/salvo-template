@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
 use crate::{
+    controllers,
     migrations::migrate_up,
-    router,
     services::{self, backend::user::UserServiceImpl},
     AppConfig,
 };
@@ -64,7 +64,7 @@ impl App {
 
         let service = Router::new()
             .hoop(salvo::affix::inject(self.clone()))
-            .push(router());
+            .push(controllers::router());
 
         server.serve(service).await;
 
