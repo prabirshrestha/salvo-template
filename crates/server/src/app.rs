@@ -7,7 +7,7 @@ use crate::{
     AppConfig,
 };
 use salvo::{prelude::*, server::ServerHandle};
-use sqlx::{Any, Pool};
+use sqlx::Pool;
 use tokio::signal;
 use tracing::info;
 
@@ -15,7 +15,6 @@ use tracing::info;
 pub struct App {
     pub app_config: Arc<AppConfig>,
     pub user_service: Arc<dyn services::user::UserService>,
-    db: Pool<Any>,
 }
 
 impl App {
@@ -35,7 +34,6 @@ impl App {
 
         let app = Self {
             app_config,
-            db,
             user_service,
         };
 
