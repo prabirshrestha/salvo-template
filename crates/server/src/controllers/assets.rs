@@ -1,7 +1,6 @@
 use anyhow::{Context, Result};
 pub use salvo::prelude::*;
 
-use crate::app::{App, AppDepot};
 use crate::templates::statics::StaticFile;
 
 pub fn routes() -> Router {
@@ -9,9 +8,7 @@ pub fn routes() -> Router {
 }
 
 #[handler]
-fn get_assets(req: &mut Request, res: &mut Response, depot: &Depot) -> Result<()> {
-    let App { user_service, .. } = depot.app();
-
+fn get_assets(req: &mut Request, res: &mut Response) -> Result<()> {
     let name = req.param("name").context("No name parameter")?;
     let data = StaticFile::get(name).context("Static File not found")?;
     res.add_header(

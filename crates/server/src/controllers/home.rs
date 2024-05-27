@@ -4,7 +4,7 @@ pub use salvo::prelude::*;
 use crate::{
     app::{App, AppDepot},
     templates,
-    utils::render::render_html,
+    utils::render::RenderExt,
 };
 
 pub fn routes() -> Router {
@@ -13,9 +13,12 @@ pub fn routes() -> Router {
 
 #[handler]
 async fn home(res: &mut Response, depot: &Depot) -> Result<()> {
-    let App { user_service, .. } = depot.app();
+    let App {
+        user_service: _user_service,
+        ..
+    } = depot.app();
 
-    render_html(res, |o| templates::home::home_html(o))?;
+    res.render_html(|o| templates::home::home_html(o))?;
 
     Ok(())
 }
