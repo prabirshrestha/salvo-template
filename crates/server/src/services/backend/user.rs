@@ -5,12 +5,12 @@ use sqlx::{Any, Pool};
 
 #[derive(Debug, Clone)]
 pub struct UserServiceImpl {
-    db: Pool<Any>,
+    // db: Pool<Any>,
 }
 
 impl UserServiceImpl {
-    pub fn new(db: Pool<Any>) -> Self {
-        Self { db }
+    pub fn new(_db: Pool<Any>) -> Self {
+        Self {}
     }
 }
 

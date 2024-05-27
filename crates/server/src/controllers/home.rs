@@ -1,23 +1,24 @@
+use anyhow::Result;
 pub use salvo::prelude::*;
 
 use crate::{
     app::{App, AppDepot},
-    views::layout::Layout,
+    templates,
+    utils::render::RenderExt,
 };
 
 pub fn routes() -> Router {
     Router::new().get(home)
 }
 
-markup::define! {
-    HomeView {
-        h1 { "Hello World" }
-    }
-}
-
 #[handler]
-async fn home(res: &mut Response, depot: &Depot) {
-    let App { user_service, .. } = depot.app();
-    // TODO: do something with user_service
-    res.render(Text::Html(Layout { main: HomeView {} }.to_string()))
+async fn home(res: &mut Response, depot: &Depot) -> Result<()> {
+    let App {
+        user_service: _user_service,
+        ..
+    } = depot.app();
+
+    res.render_html(|o| templates::home::home_html(o))?;
+
+    Ok(())
 }
