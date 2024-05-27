@@ -11,7 +11,7 @@ async-trait = "0.1.80"
 grass = { version = "0.13.2", features = ["macro"] }
 markup = "0.15.0"
 salvo = { version = "0.67.0", features = ["affix"] }
-schematic = { version = "0.15.2", features = ["yaml"] }
+schematic = { version = "0.16.0", features = ["yaml"] }
 sea-query = "0.30.7"
 sea-query-binder = { version = "0.5.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
 secrecy = "0.8.0"
