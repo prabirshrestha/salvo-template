@@ -8,4 +8,5 @@ pub mod migrations;
 pub mod models;
 pub mod services;
 pub mod utils;
-pub mod views;
+
+include!(concat!(env!("OUT_DIR"), "/templates.rs"));
