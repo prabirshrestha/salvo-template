@@ -231,9 +231,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "cfg_aliases"
-version = "0.1.1"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd16c4719339c4530435d38e511904438d07cce7950afa3718a84ac36c10e89e"
+checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 
 [[package]]
 name = "cipher"
@@ -1295,9 +1295,9 @@ dependencies = [
 
 [[package]]
 name = "nix"
-version = "0.28.0"
+version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab2156c4fce2f8df6c499cc1c763e4394b7482525bf2a9701c9d79d215f519e4"
+checksum = "71e2746dc3a24dd78b3cfcb7be93368c6de9963d30f43a6a73998a9cf4b17b46"
 dependencies = [
  "bitflags 2.5.0",
  "cfg-if",
@@ -1639,30 +1639,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "proc-macro-error"
-version = "1.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da25490ff9892aab3fcf7c36f08cfb902dd3e71ca0f9f9517bea02a73a5ce38c"
-dependencies = [
- "proc-macro-error-attr",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
- "version_check",
-]
-
-[[package]]
-name = "proc-macro-error-attr"
-version = "1.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1be40180e52ecc98ad80b184934baf3d0d29f979574e439af5a55274b35f869"
-dependencies = [
- "proc-macro2",
- "quote",
- "version_check",
-]
-
-[[package]]
 name = "proc-macro2"
 version = "1.0.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1998,9 +1974,9 @@ checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
 
 [[package]]
 name = "salvo"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f9c3b8a19a979684f77dac4e4dd82422dde15a11f9e906a86f31ee6b6723a7c9"
+checksum = "9f345e9d1bffcb0b5de5ca91e5ea67b3c9e7d53626bd336a685f853d40102679"
 dependencies = [
  "salvo-jwt-auth",
  "salvo-proxy",
@@ -2010,9 +1986,9 @@ dependencies = [
 
 [[package]]
 name = "salvo-jwt-auth"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da5f53c0f28a93ae3add52425748ebf42d5e073178d2dffceb48fec5ff7ef459"
+checksum = "8ed3fb5cecd2f52c2c39d6e4103548d6f6690b277c49b12960843ecaeb0d483f"
 dependencies = [
  "base64 0.22.1",
  "bytes",
@@ -2030,9 +2006,9 @@ dependencies = [
 
 [[package]]
 name = "salvo-proxy"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43cda3586fa13135e1e1db40373c4b0f2b08fe171b152e0a4fdae003e05cf959"
+checksum = "df4da5d8518eec607dbfdc5d0df166adf934403ba9ff2a4d44c81d06ce3b517f"
 dependencies = [
  "fastrand",
  "futures-util",
@@ -2048,11 +2024,10 @@ dependencies = [
 
 [[package]]
 name = "salvo-serde-util"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c209177b0fe85620dff6102d6ea8f8b1c2964560d053bb70c088b5f6c77610a0"
+checksum = "5497aa540af986e938a52937a4720f461f55a4247540d2428c9493b2ea12f9f2"
 dependencies = [
- "proc-macro-error",
  "proc-macro2",
  "quote",
  "syn 2.0.66",
@@ -2060,9 +2035,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_core"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b05989a88a3d5a6a178aee40cd9439890bcccb5c78cdd127def079ab19c371ec"
+checksum = "10b5286f12df1d4be2a7b00d5ee4a0232627688d29e3d1842bc3f7956c5bad5c"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2106,9 +2081,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_extra"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "208c58f2205202d05645a799d4bf9ccef9624be351b06d663e7cf9215158ac4c"
+checksum = "90a3321a6f6a4fa8ae3e82058cf8ecad641abfc5851ce0a9cce277daf3b00aff"
 dependencies = [
  "base64 0.22.1",
  "etag",
@@ -2126,9 +2101,9 @@ dependencies = [
 
 [[package]]
 name = "salvo_macros"
-version = "0.67.2"
+version = "0.68.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "899f4bcf047987eae63d497226c6b56473b53db827cccee3fb08f7bbc252aaa6"
+checksum = "5a13b586a77f2ff684097ebc9773e3d11910b0d86ca4cffe46de1080e322138a"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
