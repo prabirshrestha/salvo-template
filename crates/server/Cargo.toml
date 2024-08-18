@@ -12,7 +12,7 @@ anyhow = { version = "1.0.82", features = ["backtrace"] }
 async-trait = "0.1.80"
 mime = "0.3.17"
 ructe = { version = "0.17.0", features = ["sass", "mime03"] }
-salvo = { version = "0.68.0", features = ["affix", "anyhow"] }
+salvo = { version = "0.71.0", features = ["affix", "anyhow"] }
 schematic = { version = "0.17.0", features = ["yaml"] }
 sea-query = "0.30.7"
 sea-query-binder = { version = "0.5.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
