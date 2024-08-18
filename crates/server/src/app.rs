@@ -61,7 +61,7 @@ impl App {
         tokio::spawn(shutdown_signal(handle));
 
         let service = Router::new()
-            .hoop(salvo::affix::inject(self.clone()))
+            .hoop(salvo::affix_state::inject(self.clone()))
             .push(controllers::router());
 
         server.serve(service).await;
