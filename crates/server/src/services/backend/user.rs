@@ -4,18 +4,18 @@ use async_trait::async_trait;
 use sqlx::{Any, Pool};
 
 #[derive(Debug, Clone)]
-pub struct UserServiceImpl {
+pub struct SqlUserService {
     // db: Pool<Any>,
 }
 
-impl UserServiceImpl {
+impl SqlUserService {
     pub fn new(_db: Pool<Any>) -> Self {
         Self {}
     }
 }
 
 #[async_trait]
-impl UserService for UserServiceImpl {
+impl UserService for SqlUserService {
     async fn get_user_by_id(&self, _user_id: &str) -> Result<Option<UserEntity>> {
         todo!()
     }

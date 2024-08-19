@@ -1,10 +1,10 @@
 use std::sync::Arc;
 
 use crate::{
+    app_config::AppConfig,
     controllers,
     migrations::migrate_up,
-    services::{self, backend::user::UserServiceImpl},
-    AppConfig,
+    services::{self, backend::user::SqlUserService},
 };
 use salvo::{prelude::*, server::ServerHandle};
 use sqlx::Pool;
@@ -30,7 +30,7 @@ impl App {
             migrate_up(db.clone()).await?;
         }
 
-        let user_service = Arc::new(UserServiceImpl::new(db.clone()));
+        let user_service = Arc::new(SqlUserService::new(db.clone()));
 
         let app = Self {
             app_config,
