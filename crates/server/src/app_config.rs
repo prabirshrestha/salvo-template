@@ -16,7 +16,7 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
-    pub fn load() -> anyhow::Result<Self> {
+    pub fn from_path() -> anyhow::Result<Self> {
         let result = ConfigLoader::<AppConfig>::new()
             .file_optional("config.yml")?
             .load()?;

@@ -19,7 +19,7 @@ pub struct App {
 
 impl App {
     pub async fn new_from_env() -> anyhow::Result<Self> {
-        let app_config = Arc::new(AppConfig::load()?);
+        let app_config = Arc::new(AppConfig::from_path()?);
         Self::new_from_config(app_config).await
     }
 
