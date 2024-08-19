@@ -7,7 +7,7 @@ async fn main() -> anyhow::Result<()> {
 
     install_default_drivers();
 
-    App::new_from_env().await?.serve().await?;
+    App::new_from_env().await?.run().await?;
 
     Ok(())
 }

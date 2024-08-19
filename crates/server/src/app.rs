@@ -44,7 +44,7 @@ impl App {
         &self.app_config
     }
 
-    pub async fn serve(self) -> anyhow::Result<()> {
+    pub async fn run(self) -> anyhow::Result<()> {
         info!("Starting server");
 
         let acceptor = TcpListener::new(format!(
