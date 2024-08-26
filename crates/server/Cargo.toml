@@ -4,11 +4,16 @@ version = "0.1.0"
 edition = "2021"
 
 build = "src/build.rs"
+
 [build-dependencies]
+anyhow = { version = "1.0.82", features = ["backtrace"] }
 ructe = { version = "0.17.0", features = ["sass", "mime03"] }
+vergen = { version = "9.0.0" }
+vergen-gitcl = { version = "1.0.0", features = ["build"] }
 
 [dependencies]
 anyhow = { version = "1.0.82", features = ["backtrace"] }
+argh = "0.1.12"
 async-trait = "0.1.80"
 mime = "0.3.17"
 ructe = { version = "0.17.0", features = ["sass", "mime03"] }
