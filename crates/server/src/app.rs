@@ -18,6 +18,15 @@ pub struct App {
 }
 
 impl App {
+    pub fn version() -> String {
+        format!(
+            "{} {}-{}",
+            env!("CARGO_PKG_NAME"),
+            env!("CARGO_PKG_VERSION"),
+            &env!("VERGEN_GIT_SHA")[..9]
+        )
+    }
+
     pub async fn new_from_env() -> anyhow::Result<Self> {
         let app_config = Arc::new(AppConfig::from_path()?);
         Self::new_from_config(app_config).await

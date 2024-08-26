@@ -1,4 +1,4 @@
-use server::app::App;
+use server::cli::Cli;
 use sqlx::any::install_default_drivers;
 
 #[tokio::main]
@@ -7,7 +7,7 @@ async fn main() -> anyhow::Result<()> {
 
     install_default_drivers();
 
-    App::new_from_env().await?.run().await?;
+    Cli::from_env().run().await?;
 
     Ok(())
 }
