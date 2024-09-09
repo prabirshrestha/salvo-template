@@ -8,11 +8,26 @@ pub struct AppConfig {
     #[setting(default = "8080", env = "PORT")]
     pub port: String,
 
-    #[setting(default = "sqlite::memory:", env = "DATABASE_URL")]
-    pub database: String,
+    #[setting(nested)]
+    pub database: DatabaseConfig,
 
     #[setting(default = true, env = "AUTO_MIGRATE")]
     pub auto_migrate: bool,
+}
+
+#[derive(Debug, Config)]
+pub struct DatabaseConfig {
+    #[setting(
+        default = "postgresql://postgres:postgres@localhost?temporary=false&data_dir=.%2F.salvo-template%2Fpostgres",
+        env = "DATABASE_URL"
+    )]
+    pub url: String,
+
+    #[setting(default = true, env = "DATABASE_USE_EMBEDDED")]
+    pub use_embedded: bool,
+
+    #[setting(default = "salvo-template", env = "DATABASE_NAME")]
+    pub db_name: String,
 }
 
 impl AppConfig {

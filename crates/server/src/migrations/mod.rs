@@ -23,7 +23,7 @@ impl AppMigrations {
         //     AnyKind::MySql => &MysqlQueryBuilder,
         //     AnyKind::Sqlite => &SqliteQueryBuilder,
         // };
-        let schema_builder = &sea_query::SqliteQueryBuilder;
+        let schema_builder = &sea_query::PostgresQueryBuilder;
 
         Ok(AppMigrations(vec![migration_0001_user::up(
             pool.clone(),
