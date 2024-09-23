@@ -7,6 +7,10 @@
     {
       "matchPackagePatterns": ["sqlx", "sea-query", "sea-query-binder"],
       "groupName": "sqlx"
+    },
+    {
+      "matchPackagePatterns": ["vergen.*"],
+      "groupName": "vergen"
     }
   ]
 }
