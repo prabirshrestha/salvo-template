@@ -8,7 +8,7 @@ use crate::{
 };
 
 pub fn routes() -> Router {
-    Router::new().get(home)
+    Router::new().push(Router::with_path("/").get(home))
 }
 
 #[handler]
