@@ -25,7 +25,7 @@ pub enum CliSubcommand {
 pub struct SubcommandVersion {}
 
 #[derive(FromArgs, PartialEq, Debug)]
-#[argh(subcommand, name = "run", description = "run objstor")]
+#[argh(subcommand, name = "run", description = "run app")]
 pub struct SubcommandRun {}
 
 impl Cli {
