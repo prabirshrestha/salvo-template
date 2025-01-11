@@ -1,11 +1,7 @@
-use ructe::Ructe;
-use vergen::Emitter;
-use vergen_gitcl::GitclBuilder;
-
 fn main() -> anyhow::Result<()> {
-    let gitcl = GitclBuilder::all_git()?;
+    let gitcl = vergen_gitcl::GitclBuilder::all_git()?;
 
-    if let Err(error) = Emitter::default()
+    if let Err(error) = vergen::Emitter::default()
         .add_instructions(&gitcl)?
         .fail_on_error()
         .emit()
@@ -17,7 +13,7 @@ fn main() -> anyhow::Result<()> {
         println!("cargo:rustc-env=VERGEN_GIT_SHA=nogit");
     }
 
-    let mut ructe = Ructe::from_env()?;
+    let mut ructe = ructe::Ructe::from_env()?;
     let mut statics = ructe.statics()?;
     statics.add_files("assets")?;
     statics.add_sass_file("assets/stylesheets/style.scss")?;
