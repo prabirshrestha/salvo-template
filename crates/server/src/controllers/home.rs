@@ -8,11 +8,11 @@ use crate::{
 };
 
 pub fn routes() -> Router {
-    Router::new().push(Router::with_path("/").get(home))
+    Router::new().get(get_home)
 }
 
 #[handler]
-async fn home(res: &mut Response, depot: &Depot) -> Result<()> {
+async fn get_home(res: &mut Response, depot: &Depot) -> Result<()> {
     let App {
         user_service: _user_service,
         ..
