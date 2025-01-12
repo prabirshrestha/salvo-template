@@ -1,5 +1,7 @@
 pub use salvo::prelude::*;
 
+pub mod errors;
+
 mod assets;
 mod auth;
 mod home;
