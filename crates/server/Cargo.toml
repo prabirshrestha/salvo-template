@@ -26,7 +26,7 @@ serde = "1.0.198"
 sqlx = { version = "0.7.4", features = ["any", "sqlite", "mysql", "postgres", "runtime-tokio-rustls", "macros", "migrate"] }
 tokio = { version = "1.37.0", default-features = false, features = ["macros", "rt-multi-thread", "signal"] }
 tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+tracing-subscriber = "0.3.18"
 xid = "1.1.1"
 
 [[bin]]
