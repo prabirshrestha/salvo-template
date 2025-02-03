@@ -7,7 +7,7 @@ build = "src/build.rs"
 
 [build-dependencies]
 anyhow = { version = "1.0.82", features = ["backtrace"] }
-ructe = { version = "0.17.0", features = ["sass", "mime03"] }
+ructe = { version = "0.18.0", features = ["sass", "mime03"] }
 vergen = { version = "9.0.0" }
 vergen-gitcl = { version = "1.0.0", features = ["build"] }
 
@@ -16,7 +16,7 @@ anyhow = { version = "1.0.82", features = ["backtrace"] }
 argh = "0.1.12"
 async-trait = "0.1.80"
 mime = "0.3.17"
-ructe = { version = "0.17.0", features = ["sass", "mime03"] }
+ructe = { version = "0.18.0", features = ["sass", "mime03"] }
 salvo = { version = "0.75.0", features = ["affix-state", "anyhow", "logging"] }
 schematic = { version = "0.17.0", features = ["yaml"] }
 sea-query = "0.31.0"
