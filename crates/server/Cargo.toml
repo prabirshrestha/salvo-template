@@ -18,7 +18,7 @@ async-trait = "0.1.80"
 mime = "0.3.17"
 ructe = { version = "0.17.0", features = ["sass", "mime03"] }
 salvo = { version = "0.75.0", features = ["affix-state", "anyhow", "logging"] }
-schematic = { version = "0.17.0", features = ["yaml"] }
+schematic = { version = "0.18.0", features = ["yaml"] }
 sea-query = "0.31.0"
 sea-query-binder = { version = "0.6.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
 secrecy = "0.8.0"
