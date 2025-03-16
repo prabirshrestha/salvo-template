@@ -12,22 +12,27 @@ vergen = { version = "9.0.0" }
 vergen-gitcl = { version = "1.0.0", features = ["build"] }
 
 [dependencies]
-anyhow = { version = "1.0.82", features = ["backtrace"] }
 argh = "0.1.12"
 async-trait = "0.1.80"
 mime = "0.3.17"
 ructe = { version = "0.18.0", features = ["sass", "mime03"] }
-salvo = { version = "0.77.0", features = ["affix-state", "anyhow", "logging"] }
+include_dir = "0.7.4"
+surrealdb-migrator = { version = "0.2.1", features = ["from-directory"] }
+salvo = { version = "0.77.0", features = ["affix-state", "logging"] }
 schematic = { version = "0.18.0", features = ["yaml"] }
-sea-query = "0.31.0"
-sea-query-binder = { version = "0.6.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
 secrecy = "0.8.0"
 serde = "1.0.198"
-sqlx = { version = "0.7.4", features = ["any", "sqlite", "mysql", "postgres", "runtime-tokio-rustls", "macros", "migrate"] }
+surrealdb = { version = "2.2.1", features = ["kv-surrealkv"] }
 tokio = { version = "1.37.0", default-features = false, features = ["macros", "rt-multi-thread", "signal"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 xid = "1.1.1"
+thiserror = "2.0.12"
+mq = "0.20.1"
+mq-surreal = "0.20.1"
+tokio-util = "0.7.14"
+listenfd = "1.0.2"
+futures-util = "0.3.31"
 
 [[bin]]
 name = "salvo-template-cli"

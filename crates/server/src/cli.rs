@@ -1,6 +1,6 @@
 use argh::FromArgs;
 
-use crate::app::App;
+use crate::{AppResult, app::App};
 
 #[derive(FromArgs, PartialEq, Debug)]
 #[argh(description = "salvo-template")]
@@ -33,7 +33,7 @@ impl Cli {
         argh::from_env()
     }
 
-    pub async fn run(&self) -> anyhow::Result<()> {
+    pub async fn run(&self) -> AppResult<()> {
         match &self.subcommand {
             Some(subcommand) => match subcommand {
                 CliSubcommand::Version(_) => {

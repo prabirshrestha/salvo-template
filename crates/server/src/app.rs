@@ -1,20 +1,19 @@
-use std::sync::Arc;
+use std::{pin::Pin, sync::Arc};
 
 use crate::{
-    app_config::AppConfig,
-    controllers,
-    migrations::migrate_up,
-    services::{self, backend::user::SqlUserService},
+    AppResult, app_config::AppConfig, migrations::migrate_up, web_server::run_web_server,
+    worker::run_worker,
 };
-use salvo::{prelude::*, server::ServerHandle};
-use sqlx::Pool;
+use futures_util::future::join_all;
+use salvo::prelude::*;
 use tokio::signal;
-use tracing::info;
+use tokio_util::sync::CancellationToken;
+use tracing::{error, info};
 
 #[derive(Clone)]
 pub struct App {
     pub app_config: Arc<AppConfig>,
-    pub user_service: Arc<dyn services::user::UserService>,
+    pub db: Arc<surrealdb::Surreal<surrealdb::engine::any::Any>>,
 }
 
 impl App {
@@ -27,24 +26,32 @@ impl App {
         )
     }
 
-    pub async fn new_from_env() -> anyhow::Result<Self> {
-        let app_config = Arc::new(AppConfig::from_path()?);
+    pub async fn new_from_env() -> AppResult<Self> {
+        let app_config = Arc::new(AppConfig::from_path(None)?);
         Self::new_from_config(app_config).await
     }
 
-    pub async fn new_from_config(app_config: Arc<AppConfig>) -> anyhow::Result<Self> {
-        let db = Pool::connect(&app_config.database).await?;
+    pub async fn new_from_config(app_config: Arc<AppConfig>) -> AppResult<Self> {
+        let mut surrealdb_config = surrealdb::opt::Config::new()
+            .set_strict(true)
+            .capabilities(surrealdb::opt::capabilities::Capabilities::all());
 
-        if app_config.auto_migrate {
-            migrate_up(db.clone()).await?;
+        if app_config.database.username.is_some() && app_config.database.password.is_some() {
+            surrealdb_config = surrealdb_config.user(surrealdb::opt::auth::Root {
+                username: &app_config.database.username.clone().unwrap(),
+                password: &app_config.database.password.clone().unwrap(),
+            });
         }
 
-        let user_service = Arc::new(SqlUserService::new(db.clone()));
+        let db = Arc::new(
+            surrealdb::engine::any::connect((&app_config.database.url, surrealdb_config)).await?,
+        );
 
-        let app = Self {
-            app_config,
-            user_service,
-        };
+        if app_config.database.auto_migrate {
+            migrate_up(db.clone(), app_config.clone()).await?;
+        }
+
+        let app = Self { app_config, db };
 
         Ok(app)
     }
@@ -53,47 +60,67 @@ impl App {
         &self.app_config
     }
 
-    pub async fn run(self) -> anyhow::Result<()> {
-        info!("Starting server");
+    pub async fn run(self) -> AppResult<()> {
+        if self.app_config.web.enabled || self.app_config.worker.enabled {
+            let mut futures: Vec<Pin<Box<dyn Future<Output = AppResult<()>>>>> = Vec::new();
 
-        let acceptor = TcpListener::new(format!(
-            "{}:{}",
-            &self.app_config().host,
-            &self.app_config().port
-        ))
-        .bind()
-        .await;
+            let cancel_token = CancellationToken::new();
 
-        let server = Server::new(acceptor);
-        let handle = server.handle();
+            let cancel_handle = tokio::spawn({
+                let cancel_token = cancel_token.clone();
+                async move {
+                    wait_for_signal().await;
+                    info!("Gracefully shutting down...");
+                    cancel_token.cancel();
+                }
+            });
 
-        tokio::spawn(shutdown_signal(handle));
+            if self.app_config.worker.enabled {
+                let worker = run_worker(self.clone(), cancel_token.clone());
+                futures.push(Box::pin(worker));
+            }
 
-        let router = Router::new()
-            .hoop(salvo::affix_state::inject(self.clone()))
-            .hoop(Logger::default())
-            .push(controllers::router());
+            if self.app_config.web.enabled {
+                let web_server = run_web_server(self.clone(), cancel_token.clone());
+                futures.push(Box::pin(web_server));
+            }
 
-        let service = Service::new(router)
-            .catcher(salvo::catcher::Catcher::default().hoop(controllers::errors::not_found));
+            let results = join_all(futures).await;
+            let mut error = None;
+            for result in results {
+                match result {
+                    Err(e) => {
+                        error!("Future failed with error: {:?}", e);
+                        error = Some(e);
+                    }
+                    _ => {}
+                }
+            }
 
-        server.serve(service).await;
+            cancel_handle.await?;
+
+            if let Some(e) = error {
+                return Err(e);
+            }
+        } else {
+            error!("No web or worker enabled");
+        }
 
         Ok(())
     }
 }
 
-async fn shutdown_signal(handle: ServerHandle) {
+async fn wait_for_signal() {
     let ctrl_c = async {
         signal::ctrl_c()
             .await
-            .expect("failed to install Ctrl+C handler");
+            .expect("Failed to install Ctrl+C signal handler");
     };
 
     #[cfg(unix)]
     let terminate = async {
         signal::unix::signal(signal::unix::SignalKind::terminate())
-            .expect("failed to install signal handler")
+            .expect("Failed to install SIGTERM signal handler")
             .recv()
             .await;
     };
@@ -102,11 +129,9 @@ async fn shutdown_signal(handle: ServerHandle) {
     let terminate = std::future::pending::<()>();
 
     tokio::select! {
-        _ = ctrl_c => info!("ctrl_c signal received"),
-        _ = terminate => info!("terminate signal received"),
+        _ = ctrl_c => info!("Ctrl+C signal received"),
+        _ = terminate => info!("SIGTERM signal received"),
     }
-
-    handle.stop_graceful(std::time::Duration::from_secs(60));
 }
 
 pub trait AppDepot {
