@@ -20,7 +20,7 @@ include_dir = "0.7.4"
 surrealdb-migrator = { version = "0.2.1", features = ["from-directory"] }
 salvo = { version = "0.77.0", features = ["affix-state", "logging"] }
 schematic = { version = "0.18.0", features = ["yaml"] }
-secrecy = "0.8.0"
+secrecy = "0.10.0"
 serde = "1.0.198"
 surrealdb = { version = "2.2.1", features = ["kv-surrealkv"] }
 tokio = { version = "1.37.0", default-features = false, features = ["macros", "rt-multi-thread", "signal"] }
