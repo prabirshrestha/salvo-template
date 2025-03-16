@@ -19,11 +19,11 @@ mime = "0.3.17"
 ructe = { version = "0.18.0", features = ["sass", "mime03"] }
 salvo = { version = "0.77.0", features = ["affix-state", "anyhow", "logging"] }
 schematic = { version = "0.18.0", features = ["yaml"] }
-sea-query = "0.31.0"
-sea-query-binder = { version = "0.6.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
+sea-query = "0.32.0"
+sea-query-binder = { version = "0.7.0", features = ["sqlx", "sqlx-any", "sqlx-mysql", "sqlx-postgres", "sqlx-sqlite"] }
 secrecy = "0.8.0"
 serde = "1.0.198"
-sqlx = { version = "0.7.4", features = ["any", "sqlite", "mysql", "postgres", "runtime-tokio-rustls", "macros", "migrate"] }
+sqlx = { version = "0.8.0", features = ["any", "sqlite", "mysql", "postgres", "runtime-tokio-rustls", "macros", "migrate"] }
 tokio = { version = "1.37.0", default-features = false, features = ["macros", "rt-multi-thread", "signal"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
