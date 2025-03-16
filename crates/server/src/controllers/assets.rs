@@ -1,16 +1,15 @@
-use anyhow::{Context, Result};
 pub use salvo::prelude::*;
 
-use crate::templates::statics::StaticFile;
+use crate::{AppResult, templates::statics::StaticFile};
 
 pub fn routes() -> Router {
     Router::with_path("/assets/<name>").get(get_assets)
 }
 
 #[handler]
-fn get_assets(req: &mut Request, res: &mut Response) -> Result<()> {
-    let name = req.param("name").context("No name parameter")?;
-    let data = StaticFile::get(name).context("Static File not found")?;
+fn get_assets(req: &mut Request, res: &mut Response) -> AppResult<()> {
+    let name = req.param("name").unwrap();
+    let data = StaticFile::get(name).unwrap();
     res.add_header(
         salvo::http::header::CONTENT_TYPE,
         &data.mime.to_string(),

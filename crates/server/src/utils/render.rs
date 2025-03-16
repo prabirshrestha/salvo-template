@@ -1,18 +1,19 @@
-use anyhow::Result;
 use salvo::prelude::*;
 
+use crate::AppResult;
+
 pub trait RenderExt {
-    fn render<F>(&mut self, do_render: F) -> Result<&mut Response>
+    fn render<F>(&mut self, do_render: F) -> AppResult<&mut Response>
     where
         F: FnOnce(&mut Vec<u8>) -> std::io::Result<()>;
 
-    fn render_html<F>(&mut self, do_render: F) -> Result<&mut Response>
+    fn render_html<F>(&mut self, do_render: F) -> AppResult<&mut Response>
     where
         F: FnOnce(&mut Vec<u8>) -> std::io::Result<()>;
 }
 
 impl RenderExt for Response {
-    fn render<F>(&mut self, do_render: F) -> Result<&mut Response>
+    fn render<F>(&mut self, do_render: F) -> AppResult<&mut Response>
     where
         F: FnOnce(&mut Vec<u8>) -> std::io::Result<()>,
     {
@@ -22,7 +23,7 @@ impl RenderExt for Response {
         Ok(self)
     }
 
-    fn render_html<F>(&mut self, do_render: F) -> Result<&mut Response>
+    fn render_html<F>(&mut self, do_render: F) -> AppResult<&mut Response>
     where
         F: FnOnce(&mut Vec<u8>) -> std::io::Result<()>,
     {
