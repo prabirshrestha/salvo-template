@@ -1,7 +1,7 @@
 use sea_query::{ColumnDef, SchemaBuilder, Table};
 use sqlx::{
-    migrate::{Migration, MigrationType},
     AnyPool, Error,
+    migrate::{Migration, MigrationType},
 };
 
 use crate::entities::user::UserIden;

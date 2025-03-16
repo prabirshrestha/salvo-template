@@ -6,9 +6,9 @@ use std::pin::Pin;
 // use sea_query::{MysqlQueryBuilder, PostgresQueryBuilder, SchemaBuilder, SqliteQueryBuilder};
 
 use sqlx::{
+    Any, Pool,
     error::BoxDynError,
     migrate::{Migration, MigrationSource, Migrator},
-    Any, Pool,
 };
 
 pub type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
