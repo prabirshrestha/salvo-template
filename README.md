@@ -16,3 +16,7 @@ cargo build
 ```bash
 cargo run
 ```
+
+## Api Docs
+
+Navigate to [http://localhost:8000/api-doc](http://localhost:8000/api-doc) to view the interactive API documentation.

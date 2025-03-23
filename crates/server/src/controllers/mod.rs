@@ -5,10 +5,13 @@ pub mod errors;
 mod assets;
 mod auth;
 mod home;
+mod openapi;
 
 pub fn router() -> Router {
-    Router::new()
+    let router = Router::new()
         .push(home::routes())
         .push(assets::routes())
-        .push(auth::routes())
+        .push(auth::routes());
+
+    openapi::with_openapi(router)
 }

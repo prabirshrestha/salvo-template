@@ -1,7 +1,11 @@
 use std::{pin::Pin, sync::Arc};
 
 use crate::{
-    AppResult, app_config::AppConfig, migrations::migrate_up, web_server::run_web_server,
+    AppResult,
+    app_config::AppConfig,
+    migrations::migrate_up,
+    services::{backend::user::SurrealUserService, user::UserService},
+    web_server::run_web_server,
     worker::run_worker,
 };
 use futures_util::future::join_all;
@@ -14,6 +18,8 @@ use tracing::{error, info};
 pub struct App {
     pub app_config: Arc<AppConfig>,
     pub db: Arc<surrealdb::Surreal<surrealdb::engine::any::Any>>,
+
+    pub user_service: Arc<dyn UserService>,
 }
 
 impl App {
@@ -51,7 +57,13 @@ impl App {
             migrate_up(db.clone(), app_config.clone()).await?;
         }
 
-        let app = Self { app_config, db };
+        let user_service = Arc::new(SurrealUserService::new(db.clone()));
+
+        let app = Self {
+            app_config,
+            db,
+            user_service,
+        };
 
         Ok(app)
     }
