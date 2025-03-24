@@ -3,7 +3,7 @@ use salvo::{oapi::extract::JsonBody, prelude::*};
 use crate::{
     AppResult,
     app::{App, AppDepot},
-    services::user::{CreateUserRequest, CreateUserResponse},
+    services::user::{SignUpRequest, SignUpResponse},
 };
 
 pub fn routes() -> Router {
@@ -29,12 +29,12 @@ fn get_signup() {
 
 #[endpoint(tags("auth"))]
 async fn post_signup(
-    body: JsonBody<CreateUserRequest>,
+    body: JsonBody<SignUpRequest>,
     depo: &mut Depot,
-) -> AppResult<Json<CreateUserResponse>> {
+) -> AppResult<Json<SignUpResponse>> {
     let App { user_service, .. } = depo.app();
 
-    let new_user = user_service.create_user(body.into_inner()).await?;
+    let new_user = user_service.signup(&body).await?;
 
     Ok(Json(new_user))
 }

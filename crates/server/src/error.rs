@@ -1,6 +1,5 @@
 use salvo::{oapi, prelude::*};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
+use serde::Serialize;
 use tracing::error;
 
 pub type AppResult<T> = Result<T, AppError>;

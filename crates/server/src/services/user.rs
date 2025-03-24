@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use salvo::oapi::{ToSchema, schema};
+use salvo::oapi::ToSchema;
 use secrecy::SecretString;
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
@@ -8,7 +8,7 @@ use validator::Validate;
 use crate::AppResult;
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
-pub struct CreateUserRequest {
+pub struct SignUpRequest {
     #[salvo(schema(example = "johndoe"))]
     pub username: String,
     #[salvo(schema(example = "John Doe"))]
@@ -21,7 +21,7 @@ pub struct CreateUserRequest {
 }
 
 #[derive(Debug, Deserialize, Serialize, ToSchema)]
-pub struct CreateUserResponse {
+pub struct SignUpResponse {
     #[salvo(schema(example = "lvjjq45c5objddsbcnj4"))]
     pub id: String,
     #[salvo(schema(example = "johndoe"))]
@@ -40,5 +40,5 @@ pub struct CreateUserResponse {
 
 #[async_trait]
 pub trait UserService: Send + Sync {
-    async fn create_user(&self, request: CreateUserRequest) -> AppResult<CreateUserResponse>;
+    async fn signup(&self, request: &SignUpRequest) -> AppResult<SignUpResponse>;
 }

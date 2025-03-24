@@ -8,7 +8,7 @@ use validator::Validate;
 
 use crate::{
     AppError, AppResult,
-    services::user::{CreateUserRequest, CreateUserResponse, UserService},
+    services::user::{SignUpRequest, SignUpResponse, UserService},
     utils::datetime::to_surreal_datetime,
 };
 
@@ -25,7 +25,7 @@ impl SurrealUserService {
 
 #[async_trait]
 impl UserService for SurrealUserService {
-    async fn create_user(&self, request: CreateUserRequest) -> AppResult<CreateUserResponse> {
+    async fn signup(&self, request: &SignUpRequest) -> AppResult<SignUpResponse> {
         request.validate()?;
 
         let now = to_surreal_datetime(&OffsetDateTime::now_utc());
@@ -53,7 +53,7 @@ impl UserService for SurrealUserService {
             .await?
             .check()?;
 
-        let user: Option<CreateUserResponse> = result.take(0)?;
+        let user: Option<SignUpResponse> = result.take(0)?;
 
         match user {
             Some(user) => {
