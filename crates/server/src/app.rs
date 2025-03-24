@@ -100,12 +100,9 @@ impl App {
             let results = join_all(futures).await;
             let mut error = None;
             for result in results {
-                match result {
-                    Err(e) => {
-                        error!("Future failed with error: {:?}", e);
-                        error = Some(e);
-                    }
-                    _ => {}
+                if let Err(e) = result {
+                    error!("Future failed with error: {:?}", e);
+                    error = Some(e);
                 }
             }
 

@@ -12,7 +12,7 @@ fn get_assets(req: &mut Request, res: &mut Response) -> AppResult<()> {
     let data = StaticFile::get(name).unwrap();
     res.add_header(
         salvo::http::header::CONTENT_TYPE,
-        &data.mime.to_string(),
+        data.mime.to_string(),
         true,
     )?
     .add_header(

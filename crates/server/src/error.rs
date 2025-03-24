@@ -46,17 +46,15 @@ impl Writer for AppError {
             .map(|c| c.subtype() == mime::JSON)
             .unwrap_or(false);
 
-        match self {
-            _ => {
-                res.status_code(StatusCode::INTERNAL_SERVER_ERROR);
-                if is_json {
-                    res.render(Json(JsonError {
-                        code: "InternalServerError".to_string(),
-                        message: "Internal Server Error".to_string(),
-                    }));
-                } else {
-                    res.render("Internal Server Error");
-                }
+        {
+            res.status_code(StatusCode::INTERNAL_SERVER_ERROR);
+            if is_json {
+                res.render(Json(JsonError {
+                    code: "InternalServerError".to_string(),
+                    message: "Internal Server Error".to_string(),
+                }));
+            } else {
+                res.render("Internal Server Error");
             }
         }
     }

@@ -34,16 +34,13 @@ impl Cli {
     }
 
     pub async fn run(&self) -> AppResult<()> {
-        match &self.subcommand {
-            Some(subcommand) => match subcommand {
-                CliSubcommand::Version(_) => {
-                    println!("{}", App::version());
-                    return Ok(());
-                }
-                CliSubcommand::Run(_) => {}
-            },
-            None => {}
-        }
+        if let Some(subcommand) = &self.subcommand { match subcommand {
+            CliSubcommand::Version(_) => {
+                println!("{}", App::version());
+                return Ok(());
+            }
+            CliSubcommand::Run(_) => {}
+        } }
 
         App::new_from_env().await?.run().await?;
 
