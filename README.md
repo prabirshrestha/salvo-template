@@ -15,8 +15,16 @@ You can also use `x` as a shorthand for `cargo xtask`. For example: `cargo x bui
 
 ## Running
 
+Make sure to install [systemfd](https://github.com/irmen/systemfd) with `cargo install systemfd` and [watchexec](https://github.com/watchexec/watchexec) with `cargo install systemfd watchexec-cli`.
+
 ```bash
 cargo xtask dev
+```
+
+or
+
+```
+cargo x dev
 ```
 
 ## Api Docs

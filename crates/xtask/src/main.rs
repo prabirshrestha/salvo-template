@@ -183,12 +183,21 @@ fn run_dev(_args: &DevArgs) {
     });
 
     // Run the development server in the foreground
-    let status = Command::new("cargo")
-        .arg("watch")
-        .arg("-x")
-        .arg("run --bin salvo-template-cli")
+    let status = Command::new("systemfd")
+        .arg("--no-pid")
+        .arg("-s")
+        .arg("127.0.0.1:8080")
+        .arg("--")
+        .arg("watchexec")
+        .arg("-r")
+        .arg("--stop-signal")
+        .arg("SIGTERM")
+        .arg("--stop-timeout=5")
+        .arg("-w")
+        .arg("crates")
+        .arg("cargo run --package server")
         .status()
-        .expect("Failed to execute cargo watch. Make sure it's installed with `cargo install cargo-watch`");
+        .expect("Failed to execute start dev server. Make sure systemfd and watchexec are installed with `cargo install systemfd watchexec-cli`");
 
     // When the dev server exits, also stop the tailwind process
     tailwind_handle.abort();
