@@ -8,13 +8,15 @@ My web project.
 ## Building
 
 ```bash
-cargo build
+cargo xtask build
 ```
+
+You can also use `x` as a shorthand for `cargo xtask`. For example: `cargo x build`.
 
 ## Running
 
 ```bash
-cargo run
+cargo xtask dev
 ```
 
 ## Api Docs
