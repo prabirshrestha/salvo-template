@@ -3,7 +3,7 @@ pub use salvo::prelude::*;
 use crate::{AppResult, templates::statics::StaticFile};
 
 pub fn routes() -> Router {
-    Router::with_path("/assets/<name>").get(get_assets)
+    Router::with_path("/assets/{name}").get(get_assets)
 }
 
 #[handler]
