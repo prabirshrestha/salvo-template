@@ -211,19 +211,50 @@ async fn ensure_tailwind_binary() -> PathBuf {
     let xtask_dir = env!("CARGO_MANIFEST_DIR");
     let cache_dir = Path::new(xtask_dir).join("../../.cache");
     let version = "4.0.15";
-    let binary_name = "tailwindcss-macos-arm64";
+
+    let binary_name = get_tailwind_binary_name();
+
     let tailwind_path = cache_dir
         .join(format!("tailwind@{}", version))
-        .join(binary_name);
+        .join(&binary_name);
 
     let url = format!(
         "https://github.com/tailwindlabs/tailwindcss/releases/download/v{}/{}",
-        version, binary_name
+        version, &binary_name
     );
 
     download_file(&url, &tailwind_path, true)
         .await
         .expect("Failed to download Tailwind CSS binary")
+}
+
+fn get_tailwind_binary_name() -> String {
+    use std::env;
+
+    let os = env::consts::OS;
+    let arch = env::consts::ARCH;
+
+    match os {
+        "macos" => match arch {
+            "aarch64" => "tailwindcss-macos-arm64",
+            "x86_64" => "tailwindcss-macos-x64",
+            _ => panic!("Unsupported macOS architecture: {}", arch),
+        },
+        "linux" => {
+            // Always use musl variants for Linux
+            match arch {
+                "aarch64" => "tailwindcss-linux-arm64-musl",
+                "x86_64" => "tailwindcss-linux-x64-musl",
+                _ => panic!("Unsupported Linux architecture: {}", arch),
+            }
+        }
+        "windows" => match arch {
+            "x86_64" => "tailwindcss-windows-x64.exe",
+            _ => panic!("Unsupported Windows architecture: {}", arch),
+        },
+        _ => panic!("Unsupported OS: {}", os),
+    }
+    .to_string()
 }
 
 async fn run_tailwind(args: &TailwindArgs) {
