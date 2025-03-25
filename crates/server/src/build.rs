@@ -15,8 +15,8 @@ fn main() -> anyhow::Result<()> {
 
     let mut ructe = ructe::Ructe::from_env()?;
     let mut statics = ructe.statics()?;
-    statics.add_files("assets")?;
-    statics.add_sass_file("assets/stylesheets/style.scss")?;
+    // TODO: find a home for compiled vs source assets such that source doesn't become public.
+    statics.add_files("assets/build")?;
     ructe.compile_templates("templates")?;
 
     Ok(())
