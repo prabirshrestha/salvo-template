@@ -1,6 +1,23 @@
-@use super::super::layout_html;
-@()
-
-@:layout_html({
-  <h1>Hello world!</h1>
+@use super::super::layout_html; @() @:layout_html({
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div
+    class="bg-white rounded-lg shadow-md p-8 max-w-md w-full border border-gray-200"
+  >
+    <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">
+      Hello world!
+    </h1>
+    <p class="text-gray-600 text-center">
+      Welcome to your Salvo application styled with Tailwind CSS
+    </p>
+    <div class="mt-6">
+      <a
+        target="_blank"
+        href="https://github.com/prabirshrestha/salvo-template"
+        class="block w-full py-2 px-4 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-md text-center transition duration-200"
+      >
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</div>
 })

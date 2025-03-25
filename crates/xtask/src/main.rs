@@ -235,8 +235,11 @@ async fn run_tailwind(args: &TailwindArgs) {
             "-o",
             output_path.to_str().unwrap(),
             "--watch",
-            "../../crates/server/assets/stylesheets/**/*.css,../../crates/server/templates/**/*.rs.html"
-
+            "--cwd",
+            Path::new(xtask_dir)
+                .join("../../crates/server")
+                .to_str()
+                .unwrap(),
         ]);
     } else if args.build {
         cmd.args([
