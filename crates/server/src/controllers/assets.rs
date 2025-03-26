@@ -8,6 +8,7 @@ pub fn routes() -> Router {
 
 #[handler]
 fn get_assets(req: &mut Request, res: &mut Response) -> AppResult<()> {
+    dbg!("hi");
     let name = req.param("name").unwrap();
     let data = StaticFile::get(name).unwrap();
     res.add_header(

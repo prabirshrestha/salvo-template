@@ -8,13 +8,23 @@ My web project.
 ## Building
 
 ```bash
-cargo build
+cargo xtask build
 ```
+
+You can also use `x` as a shorthand for `cargo xtask`. For example: `cargo x build`.
 
 ## Running
 
+Make sure to install [systemfd](https://github.com/irmen/systemfd) with `cargo install systemfd` and [watchexec](https://github.com/watchexec/watchexec) with `cargo install systemfd watchexec-cli`.
+
 ```bash
-cargo run
+cargo xtask dev
+```
+
+or
+
+```
+cargo x dev
 ```
 
 ## Api Docs
