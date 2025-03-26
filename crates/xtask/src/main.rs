@@ -91,6 +91,16 @@ async fn download_file(
         fs::remove_file(&temp_path)?;
     }
 
+    // ls on destination path
+    println!(
+        "Listing files in destination path: {}",
+        destination.parent().unwrap().display()
+    );
+    let entries = fs::read_dir(destination.parent().unwrap())?;
+    for entry in entries {
+        println!("{}", entry?.path().display());
+    }
+
     let client = Client::new();
     let res = client
         .get(url)
