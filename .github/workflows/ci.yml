@@ -51,7 +51,7 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-      - run: cargo xtask build
+      - run: cargo xtask build --release
       - name: Run Test
         uses: actions-rs/cargo@v1
         with:
