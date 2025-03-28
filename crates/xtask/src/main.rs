@@ -1,5 +1,6 @@
 use argh::FromArgs;
 use std::process::{Command, ExitStatus};
+use xshell::{Shell, cmd};
 
 /// Tasks for the salvo-template project
 #[derive(FromArgs)]
@@ -14,6 +15,7 @@ enum Commands {
     Build(BuildArgs),
     Test(TestArgs),
     Lint(LintArgs),
+    Dev(DevArgs),
 }
 
 /// Build the project
@@ -51,6 +53,19 @@ struct LintArgs {
     check: bool,
 }
 
+/// Run the development server with hot reload
+#[derive(FromArgs)]
+#[argh(subcommand, name = "dev")]
+struct DevArgs {
+    /// host IP address to bind to (default: 127.0.0.1)
+    #[argh(option, default = "String::from(\"127.0.0.1\")")]
+    host: String,
+
+    /// port to use for the server (default: 8080)
+    #[argh(option, default = "8080")]
+    port: u16,
+}
+
 fn main() {
     let cli: Cli = argh::from_env();
 
@@ -58,6 +73,7 @@ fn main() {
         Commands::Build(args) => build(args),
         Commands::Test(args) => test(args),
         Commands::Lint(args) => lint(args),
+        Commands::Dev(args) => dev(args),
     };
 
     if !result.success() {
@@ -130,6 +146,31 @@ fn lint(args: LintArgs) -> ExitStatus {
 
     println!("Running clippy...");
     clippy_cmd.status().expect("failed to execute clippy")
+}
+
+fn dev(args: DevArgs) -> ExitStatus {
+    let shell = Shell::new().expect("Failed to create shell");
+
+    println!(
+        "Starting development server on {}:{}...",
+        args.host, args.port
+    );
+    println!("Note: This requires systemfd and watchexec to be installed.");
+    println!("If not installed, run:");
+    println!("  cargo install systemfd");
+    println!("  cargo install watchexec-cli");
+
+    let addr = format!("{}:{}", args.host, args.port);
+
+    println!("Starting server with hot reload...");
+
+    match cmd!(shell, "systemfd --no-pid -s {addr} -- watchexec -r --stop-signal SIGTERM --stop-timeout=5 -w crates -- cargo run --package server").run() {
+        Ok(_) => Command::new("true").status().unwrap(),
+        Err(e) => {
+            eprintln!("Failed to run development server: {}", e);
+            Command::new("false").status().unwrap()
+        }
+    }
 }
 
 fn env(name: &str, default: &str) -> String {

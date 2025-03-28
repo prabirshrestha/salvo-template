@@ -7,3 +7,4 @@ members = [
 
 [workspace.dependencies]
 argh = "0.1.12"
+xshell = "0.2.7"
