@@ -11,10 +11,34 @@ My web project.
 cargo build
 ```
 
+or
+
+```bash
+cargo xtask build
+```
+
 ## Running
 
 ```bash
 cargo run
+```
+
+## Running with watch mode
+
+```bash
+cargo watch -x run
+```
+
+or
+
+```bash
+cargo xtask dev
+```
+
+To override the default host and port, use the `--host` and `--port` flags:
+
+```bash
+cargo xtask dev --host 127.0.0.1 --port 8080
 ```
 
 ## Api Docs
