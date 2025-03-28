@@ -5,12 +5,18 @@
   ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["sqlx", "sea-query", "sea-query-binder"],
-      "groupName": "sqlx"
+      "groupName": "sqlx",
+      "matchPackageNames": [
+        "/sqlx/",
+        "/sea-query/",
+        "/sea-query-binder/"
+      ]
     },
     {
-      "matchPackagePatterns": ["vergen.*"],
-      "groupName": "vergen"
+      "groupName": "vergen",
+      "matchPackageNames": [
+        "/vergen.*/"
+      ]
     }
   ]
 }
