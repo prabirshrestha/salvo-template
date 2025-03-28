@@ -42,8 +42,8 @@ jobs:
           mkdir -p $HOME/.local/bin
           curl -sLo $HOME/.local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.17/tailwindcss-linux-x64-musl
           chmod +x $HOME/.local/bin/tailwindcss
-          ls $HOME/.local/bin
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.local/bin:$PATH"
+          echo "PATH=$PATH" >> $GITHUB_ENV
           tailwindcss --version
       - name: Install Rust
         uses: actions-rs/toolchain@v1
