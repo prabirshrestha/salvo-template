@@ -40,7 +40,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p $HOME/.local/bin
-          wget -q https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.17/tailwindcss-linux-x64-musl -O $HOME/.local/bin/tailwindcss
+          curl -sLo $HOME/.local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.17/tailwindcss-linux-x64-musl
           chmod +x $HOME/.local/bin/tailwindcss
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           tailwindcss --version
