@@ -36,10 +36,12 @@ jobs:
             echo "git tag version (${{ env.TAG_VERSION }}) does not match Cargo.toml version (v${{ env.CARGO_VERSION }})"
             exit 1
           fi
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: 'npm install -g @tailwindcss/cli@4.0.17'
+      - name: Download and setup TailwindCSS
+        run: |
+          mkdir -p $HOME/.local/bin
+          curl -L https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.17/tailwindcss-linux-arm64-musl -o $HOME/.local/bin/tailwindcss
+          chmod +x $HOME/.local/bin/tailwindcss
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
