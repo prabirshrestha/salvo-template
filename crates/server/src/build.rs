@@ -13,11 +13,36 @@ fn main() -> anyhow::Result<()> {
         println!("cargo:rustc-env=VERGEN_GIT_SHA=nogit");
     }
 
+    compile_tailwindcss()?;
+
     let mut ructe = ructe::Ructe::from_env()?;
     let mut statics = ructe.statics()?;
-    statics.add_files("assets")?;
-    statics.add_sass_file("assets/stylesheets/style.scss")?;
+    statics.add_file("assets/stylesheets/app.generated.css")?;
     ructe.compile_templates("templates")?;
+
+    Ok(())
+}
+
+fn compile_tailwindcss() -> anyhow::Result<()> {
+    use std::process::Command;
+
+    #[allow(unused_mut)]
+    let mut args = vec![
+        "-i",
+        "assets/stylesheets/app.css",
+        "-o",
+        "assets/stylesheets/app.generated.css",
+    ];
+
+    // Only minify in release builds (when debug_assertions is not enabled)
+    #[cfg(not(debug_assertions))]
+    args.push("--minify");
+
+    let status = Command::new("tailwindcss").args(args).status()?;
+
+    if !status.success() {
+        return Err(anyhow::anyhow!("Failed to run TailwindCSS compiler"));
+    }
 
     Ok(())
 }
