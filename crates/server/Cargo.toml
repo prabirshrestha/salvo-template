@@ -18,7 +18,7 @@ mime = "0.3.17"
 ructe = { version = "0.18.0", features = ["sass", "mime03"] }
 include_dir = "0.7.4"
 surrealdb-migrator = { version = "0.2.1", features = ["from-directory"] }
-salvo = { version = "0.77.0", features = ["affix-state", "logging", "oapi"] }
+salvo = { version = "0.84.0", features = ["affix-state", "logging", "oapi"] }
 schematic = { version = "0.18.0", features = ["yaml"] }
 secrecy = { version = "0.10.0", features = ["serde"] }
 serde = "1.0.198"
