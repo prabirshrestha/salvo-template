@@ -1,22 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "packageRules": [
     {
-      "groupName": "sqlx",
-      "matchPackageNames": [
-        "/sqlx/",
-        "/sea-query/",
-        "/sea-query-binder/"
-      ]
-    },
-    {
       "groupName": "vergen",
-      "matchPackageNames": [
-        "/vergen.*/"
-      ]
+      "matchPackageNames": ["/vergen.*/"]
     }
   ]
 }

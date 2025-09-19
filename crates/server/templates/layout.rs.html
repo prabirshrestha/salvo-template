@@ -1,10 +1,13 @@
-@use super::statics::*;
-@(content: Content)
+@use super::statics::*; @(content: Content)
 
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/assets/@style_css.name"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/@app_generated_css.name"
+    />
   </head>
   <body>
     @:content()

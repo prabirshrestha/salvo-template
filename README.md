@@ -5,6 +5,11 @@ _Use with `cargo generate prabirshrestha/salvo-template`._
 
 My web project.
 
+## Requirements
+
+- Rust and Cargo
+- [Tailwind CSS Standalone CLI](https://github.com/tailwindlabs/tailwindcss/releases/tag/v4.0.17). For more information refer to [documentation](https://tailwindcss.com/blog/standalone-cli).
+
 ## Building
 
 ```bash
